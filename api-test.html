@@ -1,0 +1,43 @@
+
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Revenue 2570 API Test</title>
+</head>
+<body>
+  <h3>ทดสอบ Revenue 2570 API</h3>
+  <button id="testBtn">ทดสอบการเชื่อมต่อ POST</button>
+  <pre id="result">ยังไม่ได้ทดสอบ</pre>
+
+  <script>
+    document.getElementById('testBtn').onclick = async () => {
+      const result = document.getElementById('result');
+      result.textContent = 'กำลังทดสอบ...';
+
+      try {
+        const response = await fetch(
+          'https://revenue-2570-api.jaratc7.workers.dev/api',
+          {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              action: 'getMemberSession',
+              token: ''
+            })
+          }
+        );
+
+        result.textContent =
+          'HTTP ' + response.status + '\n' +
+          await response.text();
+      } catch (error) {
+        result.textContent = 'ERROR: ' + error.message;
+      }
+    };
+  </script>
+</body>
+</html>
